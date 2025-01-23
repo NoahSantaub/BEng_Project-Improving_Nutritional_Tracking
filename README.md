@@ -9,6 +9,7 @@ This project is developed on top of existing work found @ https://www.kaggle.com
 
 Training dataset: https://www.kaggle.com/code/databeru/classify-15-fruits-with-tensorflow-acc-99-6
 
+MUST change/update file locations for every file: where the db is stored, where to save/call the model and image locations
 
 CPU-only
 - Tensorflow == 2.18.0 

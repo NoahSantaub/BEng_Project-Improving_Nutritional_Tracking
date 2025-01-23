@@ -94,7 +94,7 @@ plt.show()
 
 #!  Train the neural network from scratch with Keras and w/o generator
 # The pictures will be resized to have the same size for the neural network
-
+"""
 img = plt.imread(df.path[0])
 plt.imshow(img)
 plt.title("Original image")
@@ -103,7 +103,7 @@ plt.show()
 plt.imshow(cv2.resize(img, (150,150)))
 plt.title("After resizing")
 plt.show()
-
+"""
 
 #!Competition of 27 pre-trained architectures - May the best win
 # Use only 5% on the pictures to speed up the training
@@ -226,7 +226,7 @@ models = {
     "VGG19": {"model":tf.keras.applications.VGG19, "perf":0},
     "Xception": {"model":tf.keras.applications.Xception, "perf":0}
 }
-
+"""
 # Create the generators
 train_generator,test_generator,train_images,val_images,test_images=create_gen()
 
@@ -253,7 +253,6 @@ for name, model in models.items():
 
 
 for name, model in models.items():
-    
     # Predict the label of the test_images
     predict = models[name]['model'].predict(test_images)
     predict = np.argmax(predict,axis=1)
@@ -292,7 +291,7 @@ plt.title('Training time for each model in sec', fontsize = 15)
 # plt.ylim(0,20)
 plt.xticks(rotation=90)
 plt.show()
-
+"""
 
 #! Train architecture with the best result
 # Split into train/test datasets using all of the pictures
@@ -304,14 +303,15 @@ train_generator,test_generator,train_images,val_images,test_images=create_gen()
 # Create and train the model
 model = get_model(tf.keras.applications.DenseNet201)
 history = model.fit(train_images, validation_data=val_images, epochs=5, callbacks=[tf.keras.callbacks.BackupAndRestore(backup_dir="/tmp/backup", save_freq='epoch', delete_checkpoint=True),tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=1, restore_best_weights=True)])
-model.save("C:/Users/nsant/OneDrive/Documents/Uni/Y3/Food_Photogrammetry/Code/foodRecognitionClassifier.h5")
-model.save("C:/Users/nsant/OneDrive/Documents/Uni/Y3/Food_Photogrammetry/Code/foodRecognitionClassifier.keras")
+model.save("C:/Users/nsant/OneDrive/Documents/Uni/Y3/Project-Source/Image Recognition/Saved Models/foodRecognitionClassifier.h5")
+model.save("C:/Users/nsant/OneDrive/Documents/Uni/Y3/Project-Source/Image Recognition/Saved Models/foodRecognitionClassifier.keras")
+
 import joblib # save model with joblib 
-filename = 'C:/Users/nsant/OneDrive/Documents/Uni/Y3/Food_Photogrammetry/Code/foodRecognitionClassifier.sav'
+filename = 'C:/Users/nsant/OneDrive/Documents/Uni/Y3/Project-Source/Image Recognition/Saved Models/foodRecognitionClassifier.sav'
 joblib.dump(model, filename)
 
 import pickle
-model_pkl_file="C:/Users/nsant/OneDrive/Documents/Uni/Y3/Food_Photogrammetry/Code/foodRecognitionClassifier.pkl"
+model_pkl_file="C:/Users/nsant/OneDrive/Documents/Uni/Y3/Project-Source/Image Recognition/Saved Models/foodRecognitionClassifier.pkl"
 with open(model_pkl_file, 'wb') as file:  
     pickle.dump(model, file)
 
@@ -346,8 +346,8 @@ print("accuracy with apple_1.jpg \n",accuracy_score(y_test, y_predict))
 mango="C:\\Users\\nsant\\OneDrive\\Documents\\Uni\\Y3\\Project_MMME3083\\Code\\mango.jpg"
 y_predict = model.predict(mango)
 print("accuracy with mango.jpg \n",accuracy_score(y_test, y_predict)) 
-owang="C:\\Users\\nsant\\OneDrive\\Documents\\Uni\\Y3\\Project_MMME3083\\Code\\orange.jpg"
-y_predict = model.predict(owang)
+orange="C:\\Users\\nsant\\OneDrive\\Documents\\Uni\\Y3\\Project_MMME3083\\Code\\orange.jpg"
+y_predict = model.predict(orange)
 print("accuracy with orange.jpg \n", accuracy_score(y_test, y_predict)) 
 
 # Display a confusion matrix

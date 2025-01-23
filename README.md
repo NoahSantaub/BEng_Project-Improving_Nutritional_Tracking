@@ -24,6 +24,6 @@ Libraries used:
 - matplotlib ==3.8.2
 - numpy == 2.0.2
 - pandas == 2.2.0
-- scikit-learn == 1.52
+- scikit-learn == 1.5.2
 - scipy == 1.12.0
 - seaborn == 0.13.2

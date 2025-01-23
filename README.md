@@ -23,7 +23,7 @@ Tensorflow with Windows native GPU, minimum spec Geforce RTX 2060
 
 Libraries used: 
 - matplotlib ==3.8.2
-- numpy == 2.0.2
+- numpy == 1.26.4
 - pandas == 2.2.0
 - scikit-learn == 1.5.2
 - scipy == 1.12.0

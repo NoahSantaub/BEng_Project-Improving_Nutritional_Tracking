@@ -28,3 +28,4 @@ Libraries used:
 - scikit-learn == 1.5.2
 - scipy == 1.12.0
 - seaborn == 0.13.2
+- openCV == 4.11.0.86

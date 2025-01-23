@@ -16,6 +16,7 @@ CPU-only
 - Keras == 3.7.0
 
 Tensorflow with Windows native GPU, minimum spec Geforce RTX 2060
+- Python == 3.9
 - Tensorflow == 2.10.1 
 - Keras == 2.10.0
 

@@ -302,7 +302,7 @@ train_generator,test_generator,train_images,val_images,test_images=create_gen()
 
 # Create and train the model
 model = get_model(tf.keras.applications.DenseNet201)
-history = model.fit(train_images, validation_data=val_images, epochs=5, callbacks=[tf.keras.callbacks.BackupAndRestore(backup_dir="/tmp/backup", save_freq='epoch', delete_checkpoint=True),tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=1, restore_best_weights=True)])
+history = model.fit(train_images, validation_data=val_images, epochs=1, callbacks=[tf.keras.callbacks.BackupAndRestore(backup_dir="/tmp/backup", save_freq='epoch', delete_checkpoint=True),tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=1, restore_best_weights=True)])
 model.save("C:/Users/nsant/OneDrive/Documents/Uni/Y3/Project-Source/Image Recognition/Saved Models/foodRecognitionClassifier.h5")
 model.save("C:/Users/nsant/OneDrive/Documents/Uni/Y3/Project-Source/Image Recognition/Saved Models/foodRecognitionClassifier.keras")
 

@@ -23,6 +23,8 @@ import gc
 from IPython.display import Markdown, display
 from time import perf_counter
 #import kagglehub
+from time import perf_counter
+import pickle
 
 def printmd(string):
     # Print with Markdowns    
@@ -226,7 +228,7 @@ models = {
     "VGG19": {"model":tf.keras.applications.VGG19, "perf":0},
     "Xception": {"model":tf.keras.applications.Xception, "perf":0}
 }
-"""
+
 # Create the generators
 train_generator,test_generator,train_images,val_images,test_images=create_gen()
 
@@ -291,7 +293,7 @@ plt.title('Training time for each model in sec', fontsize = 15)
 # plt.ylim(0,20)
 plt.xticks(rotation=90)
 plt.show()
-"""
+
 
 #! Train architecture with the best result
 # Split into train/test datasets using all of the pictures
@@ -337,16 +339,16 @@ y_test = list(test_df.fruit)
 acc = accuracy_score(y_test,predict)
 print(f'# Accuracy on the test set: {acc * 100:.2f}%')
 
-sampleImage1="C:\\Users\\nsant\\OneDrive\\Documents\\Uni\\Y3\\Project_MMME3083\\Code\\apple.jpg"
+sampleImage1="C:\\Users\\nsant\\OneDrive\\Documents\\Uni\\Y3\\Project-Source\\Image Recognition\\Test Images\\apple.jpg"
 y_predict = model.predict(sampleImage1)
 print("accuracy with apple.jpg \n",accuracy_score(y_test, y_predict))
-bapple="C:\\Users\\nsant\\OneDrive\\Documents\\Uni\\Y3\\Project_MMME3083\\Code\\apple_1.jpg"
+bapple="C:\\Users\\nsant\\OneDrive\\Documents\\Uni\\Y3\\Project-Source\\Image Recognition\\Test Images\\apple_1.jpg"
 y_predict = model.predict(bapple)
 print("accuracy with apple_1.jpg \n",accuracy_score(y_test, y_predict)) 
-mango="C:\\Users\\nsant\\OneDrive\\Documents\\Uni\\Y3\\Project_MMME3083\\Code\\mango.jpg"
+mango="C:\\Users\\nsant\\OneDrive\\Documents\\Uni\\Y3\\Project-Source\\Image Recognition\\Test Images\\mango.jpg"
 y_predict = model.predict(mango)
 print("accuracy with mango.jpg \n",accuracy_score(y_test, y_predict)) 
-orange="C:\\Users\\nsant\\OneDrive\\Documents\\Uni\\Y3\\Project_MMME3083\\Code\\orange.jpg"
+orange="C:\\Users\\nsant\\OneDrive\\Documents\\Uni\\Y3\\Project-Source\\Image Recognition\\Test Images\\orange.jpg"
 y_predict = model.predict(orange)
 print("accuracy with orange.jpg \n", accuracy_score(y_test, y_predict)) 
 

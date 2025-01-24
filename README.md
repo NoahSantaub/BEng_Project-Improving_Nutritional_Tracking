@@ -9,16 +9,17 @@ This project is developed on top of existing work found @ https://www.kaggle.com
 
 Training dataset: https://www.kaggle.com/code/databeru/classify-15-fruits-with-tensorflow-acc-99-6
 
-MUST change/update file locations for every file: where the db is stored, where to save/call the model and image locations
+MUST change/update file locations for every file: where the database is stored, where to save/call the model and image locations
 
-CPU-only
+TensorFlow CPU-only
 - Tensorflow == 2.18.0 
 - Keras == 3.7.0
 
-Tensorflow with Windows native GPU, minimum spec Geforce RTX 2060
-- Python == 3.9
-- Tensorflow == 2.10.1 
+Tensorflow with Windows native GPU
+- Tensorflow == 2.10.1
+  - Grapic Drivers -> cuDNN == 8.1 & CUDA == 11.2 https://www.tensorflow.org/install/source#gpu
 - Keras == 2.10.0
+- Python == 3.9
 
 
 Libraries used: 

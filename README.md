@@ -7,7 +7,7 @@ A food-recognition model (using TensorFlow) is used to identify the fruit to all
 
 This project is developed on top of existing work found @ https://www.kaggle.com/code/databeru/classify-15-fruits-with-tensorflow-acc-99-6
 
-Training dataset: https://www.kaggle.com/code/databeru/classify-15-fruits-with-tensorflow-acc-99-6
+Training dataset: https://www.kaggle.com/datasets/chrisfilo/fruit-recognition
 
 MUST change/update file locations for every file: where the database is stored, where to save/call the model and image locations
 

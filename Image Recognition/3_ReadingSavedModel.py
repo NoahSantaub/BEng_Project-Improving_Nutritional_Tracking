@@ -22,6 +22,7 @@ import gc
 from IPython.display import Markdown, display
 from time import perf_counter
 #import kagglehub
+startTime=time.perf_counter()
 
 def load_images_from_folder(folder,only_path = False, label = ""):
 # Load the paths to the images in a directory
@@ -64,6 +65,7 @@ fruit_names = sorted(df.fruit.unique())
 mapper_fruit_names = dict(zip(fruit_names, [t for t in range(len(fruit_names))]))
 df["label"] = df["fruit"].map(mapper_fruit_names)
 #print(mapper_fruit_names)
+#exit()
 
 def load_img(df):
 # Load the images using their contained in the dataframe df
@@ -177,13 +179,14 @@ apple="C:\\Users\\nsant\\OneDrive\\Documents\\Uni\\Y3\\Project-Source\\Image Rec
 apple_1="C:\\Users\\nsant\\OneDrive\\Documents\\Uni\\Y3\\Project-Source\\Image Recognition\\Test Images\\apple_1.jpg"
 mango="C:\\Users\\nsant\\OneDrive\\Documents\\Uni\\Y3\\Project-Source\\Image Recognition\\Test Images\\mango.jpg"
 orange="C:\\Users\\nsant\\OneDrive\\Documents\\Uni\\Y3\\Project-Source\\Image Recognition\\Test Images\\orange.jpg"
+orangeTrainedWith="C:\\Users\\nsant\\OneDrive\\Documents\\Uni\\Y3\\Project_MMME3083\\Code\\Fruit Image DB\\Orange\\Orange0016.png"
 
-imageApple = plt.imread(apple_1)
-#plt.imshow(imageApple)
-#plt.show()
+imageApple = plt.imread(orangeTrainedWith)
+plt.imshow(imageApple)
+plt.show()
 smallApple=(cv2.resize(imageApple, (224,224)))
-#plt.imshow(smallApple)
-#plt.show()
+plt.imshow(smallApple)
+plt.show()
 smallApple=smallApple.reshape(1,224,224,3)
 
 ##!##############################
@@ -224,17 +227,19 @@ loadingAModel = tf.keras.models.load_model('C:\\Users\\nsant\\OneDrive\\Document
 predict = loadingAModel.predict(smallApple)
 #print(predict)
 predictedClass = np.argmax(predict,axis=1)
-#print("Predicted Class: ",predictedClass)
+print("Predicted Class: ",predictedClass)
 
 #value=df.loc['fruit'].value[13]
 #value=df.at(13, 'fruit')
 strippedText = str(predictedClass).replace('[','').replace(']','')
 #print(strippedText)
-value=df['fruit'].values[int(strippedText)]
-print("Predicted value: ",value)
+value=test_df['fruit'].values[int(strippedText)]
 
+print("Predicted Value: ", list(mapper_fruit_names.keys()) [list(mapper_fruit_names.values()).index(int(strippedText))])
 
 confidence_score = tf.math.reduce_max(predict, axis=1) 
 print("Confidence score: ", confidence_score)
 
-#print("test")
+endTime=time.perf_counter()
+elapsedTimeToPredict=endTime-startTime
+print(f"Time taken: {elapsedTimeToPredict:.6f} seconds")

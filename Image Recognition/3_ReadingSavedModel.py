@@ -1,7 +1,7 @@
 # Load the libraries
 import tensorflow as tf
-print(tf.__version__) #verifies tensorflow version
-print(tf.config.list_physical_devices('GPU')) #checks for gpu
+print("TensorFlow Version: ", tf.__version__) #verifies tensorflow version
+print("Check for GPU allocation: ",tf.config.list_physical_devices('GPU')) #checks for gpu
 import pandas as pd
 import numpy as np
 import seaborn as sns
@@ -13,8 +13,7 @@ import time
 from sklearn.metrics import classification_report, confusion_matrix, accuracy_score
 from sklearn.model_selection import train_test_split
 import keras
-print(keras.__version__)
-print(tf.keras.__version__)#version check
+print("keras Version: ",tf.keras.__version__)#version check
 from tensorflow.python.keras import Sequential
 from tensorflow.python.keras.layers import Activation, Dropout, Flatten, Dense, Conv2D, MaxPooling2D
 from tensorflow.python.keras.utils.np_utils import to_categorical
@@ -180,11 +179,12 @@ mango="C:\\Users\\nsant\\OneDrive\\Documents\\Uni\\Y3\\Project-Source\\Image Rec
 orange="C:\\Users\\nsant\\OneDrive\\Documents\\Uni\\Y3\\Project-Source\\Image Recognition\\Test Images\\orange.jpg"
 
 imageApple = plt.imread(apple_1)
-plt.imshow(imageApple)
-plt.show()
-    
-plt.imshow(cv2.resize(imageApple, (150,150)))
-plt.show()
+#plt.imshow(imageApple)
+#plt.show()
+smallApple=(cv2.resize(imageApple, (224,224)))
+#plt.imshow(smallApple)
+#plt.show()
+smallApple=smallApple.reshape(1,224,224,3)
 
 ##!##############################
 #model_pkl_file="C:/Users/nsant/OneDrive/Documents/Uni/Y3/Food_Photogrammetry/Code/foodRecognitionClassifier.pkl"
@@ -221,20 +221,20 @@ loadingAModel = tf.keras.models.load_model('C:\\Users\\nsant\\OneDrive\\Document
 #loadingAModel.summary()
 
 # Predict the label of the test_images
-predict = loadingAModel.predict(imageApple)
-print(predict)
-#predict = np.argmax(predict,axis=1)
+predict = loadingAModel.predict(smallApple)
+#print(predict)
+predictedClass = np.argmax(predict,axis=1)
+#print("Predicted Class: ",predictedClass)
 
-# Map the label
-labels = (train_images.class_indices)
-labels = dict((v,k) for k,v in labels.items())
-predict = [labels[k] for k in predict]
-# Get the accuracy on the test set
-y_test = list(test_df.fruit)
-acc = accuracy_score(y_test,predict)
-print(acc)
-print(f'# Accuracy on the test set: {acc * 100:.2f}%')
+#value=df.loc['fruit'].value[13]
+#value=df.at(13, 'fruit')
+strippedText = str(predictedClass).replace('[','').replace(']','')
+#print(strippedText)
+value=df['fruit'].values[int(strippedText)]
+print("Predicted value: ",value)
 
-# check results
-print(classification_report(y_test, predict))
-#test
+
+confidence_score = tf.math.reduce_max(predict, axis=1) 
+print("Confidence score: ", confidence_score)
+
+#print("test")

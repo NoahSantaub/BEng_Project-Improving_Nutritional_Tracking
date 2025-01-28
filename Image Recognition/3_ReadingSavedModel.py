@@ -182,7 +182,8 @@ orange="C:\\Users\\nsant\\OneDrive\\Documents\\Uni\\Y3\\Project-Source\\Image Re
 orangeTrainedWith="C:\\Users\\nsant\\OneDrive\\Documents\\Uni\\Y3\\Project_MMME3083\\Code\\Fruit Image DB\\Orange\\Orange0016.png"
 
 testFruitArray=[apple,apple_1,mango,orange,orangeTrainedWith]
-testFruit=testFruitArray[1]
+testFruit=testFruitArray[2]
+print(testFruit)
 unknownFruit = plt.imread(testFruit)
 plt.imshow(unknownFruit)
 plt.show()

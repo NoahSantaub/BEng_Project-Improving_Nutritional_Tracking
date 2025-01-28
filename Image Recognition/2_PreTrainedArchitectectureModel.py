@@ -304,18 +304,9 @@ train_generator,test_generator,train_images,val_images,test_images=create_gen()
 
 # Create and train the model
 model = get_model(tf.keras.applications.DenseNet201)
-history = model.fit(train_images, validation_data=val_images, epochs=1, callbacks=[tf.keras.callbacks.BackupAndRestore(backup_dir="/tmp/backup", save_freq='epoch', delete_checkpoint=True),tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=1, restore_best_weights=True)])
-model.save("C:/Users/nsant/OneDrive/Documents/Uni/Y3/Project-Source/Image Recognition/Saved Models/foodRecognitionClassifier.h5")
+history = model.fit(train_images, validation_data=val_images, epochs=5, callbacks=[tf.keras.callbacks.BackupAndRestore(backup_dir="/tmp/backup", save_freq='epoch', delete_checkpoint=True),tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=1, restore_best_weights=True)])
+
 model.save("C:/Users/nsant/OneDrive/Documents/Uni/Y3/Project-Source/Image Recognition/Saved Models/foodRecognitionClassifier.keras")
-
-import joblib # save model with joblib 
-filename = 'C:/Users/nsant/OneDrive/Documents/Uni/Y3/Project-Source/Image Recognition/Saved Models/foodRecognitionClassifier.sav'
-joblib.dump(model, filename)
-
-import pickle
-model_pkl_file="C:/Users/nsant/OneDrive/Documents/Uni/Y3/Project-Source/Image Recognition/Saved Models/foodRecognitionClassifier.pkl"
-with open(model_pkl_file, 'wb') as file:  
-    pickle.dump(model, file)
 
 pd.DataFrame(history.history)[['accuracy','val_accuracy']].plot()
 plt.title("Accuracy")
@@ -338,19 +329,6 @@ predict = [labels[k] for k in predict]
 y_test = list(test_df.fruit)
 acc = accuracy_score(y_test,predict)
 print(f'# Accuracy on the test set: {acc * 100:.2f}%')
-
-sampleImage1="C:\\Users\\nsant\\OneDrive\\Documents\\Uni\\Y3\\Project-Source\\Image Recognition\\Test Images\\apple.jpg"
-y_predict = model.predict(sampleImage1)
-print("accuracy with apple.jpg \n",accuracy_score(y_test, y_predict))
-bapple="C:\\Users\\nsant\\OneDrive\\Documents\\Uni\\Y3\\Project-Source\\Image Recognition\\Test Images\\apple_1.jpg"
-y_predict = model.predict(bapple)
-print("accuracy with apple_1.jpg \n",accuracy_score(y_test, y_predict)) 
-mango="C:\\Users\\nsant\\OneDrive\\Documents\\Uni\\Y3\\Project-Source\\Image Recognition\\Test Images\\mango.jpg"
-y_predict = model.predict(mango)
-print("accuracy with mango.jpg \n",accuracy_score(y_test, y_predict)) 
-orange="C:\\Users\\nsant\\OneDrive\\Documents\\Uni\\Y3\\Project-Source\\Image Recognition\\Test Images\\orange.jpg"
-y_predict = model.predict(orange)
-print("accuracy with orange.jpg \n", accuracy_score(y_test, y_predict)) 
 
 # Display a confusion matrix
 from sklearn.metrics import confusion_matrix

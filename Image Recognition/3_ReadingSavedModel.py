@@ -181,13 +181,15 @@ mango="C:\\Users\\nsant\\OneDrive\\Documents\\Uni\\Y3\\Project-Source\\Image Rec
 orange="C:\\Users\\nsant\\OneDrive\\Documents\\Uni\\Y3\\Project-Source\\Image Recognition\\Test Images\\orange.jpg"
 orangeTrainedWith="C:\\Users\\nsant\\OneDrive\\Documents\\Uni\\Y3\\Project_MMME3083\\Code\\Fruit Image DB\\Orange\\Orange0016.png"
 
-imageApple = plt.imread(orangeTrainedWith)
-plt.imshow(imageApple)
+testFruitArray=[apple,apple_1,mango,orange,orangeTrainedWith]
+testFruit=testFruitArray[1]
+unknownFruit = plt.imread(testFruit)
+plt.imshow(unknownFruit)
 plt.show()
-smallApple=(cv2.resize(imageApple, (224,224)))
-plt.imshow(smallApple)
+unknownFruit=(cv2.resize(unknownFruit, (224,224)))
+plt.imshow(unknownFruit)
 plt.show()
-smallApple=smallApple.reshape(1,224,224,3)
+unknownFruit=unknownFruit.reshape(1,224,224,3)
 
 ##!##############################
 #model_pkl_file="C:/Users/nsant/OneDrive/Documents/Uni/Y3/Food_Photogrammetry/Code/foodRecognitionClassifier.pkl"
@@ -224,7 +226,7 @@ loadingAModel = tf.keras.models.load_model('C:\\Users\\nsant\\OneDrive\\Document
 #loadingAModel.summary()
 
 # Predict the label of the test_images
-predict = loadingAModel.predict(smallApple)
+predict = loadingAModel.predict(unknownFruit)
 #print(predict)
 predictedClass = np.argmax(predict,axis=1)
 print("Predicted Class: ",predictedClass)
@@ -233,9 +235,9 @@ print("Predicted Class: ",predictedClass)
 #value=df.at(13, 'fruit')
 strippedText = str(predictedClass).replace('[','').replace(']','')
 #print(strippedText)
-value=test_df['fruit'].values[int(strippedText)]
-
-print("Predicted Value: ", list(mapper_fruit_names.keys()) [list(mapper_fruit_names.values()).index(int(strippedText))])
+#value=test_df['fruit'].values[int(strippedText)]
+value=list(mapper_fruit_names.keys()) [list(mapper_fruit_names.values()).index(int(strippedText))]
+print("Predicted Value: ", value)
 
 confidence_score = tf.math.reduce_max(predict, axis=1) 
 print("Confidence score: ", confidence_score)

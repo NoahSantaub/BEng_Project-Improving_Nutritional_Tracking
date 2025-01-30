@@ -64,116 +64,11 @@ df = df.reset_index(drop=True)
 fruit_names = sorted(df.fruit.unique())
 mapper_fruit_names = dict(zip(fruit_names, [t for t in range(len(fruit_names))]))
 df["label"] = df["fruit"].map(mapper_fruit_names)
+#{'Apple': 0, 'Banana': 1, 'Carambola': 2, 'Guava': 3, 'Kiwi': 4, 'Mango': 5, 'Orange': 6, 'Peach': 7, 'Pear': 8, 'Persimmon': 9, 'Pitaya': 10, 'Plum': 11, 'Pomegranate': 12, 'Tomatoes': 13, 'muskmelon': 14}
 #print(mapper_fruit_names)
 #exit()
 
-def load_img(df):
-# Load the images using their contained in the dataframe df
-# Return a list of images and a list with the labels of the images
-    img_paths = df["path"].values
-    img_labels = df["label"].values
-    X = []
-    y = []
-    
-    for i,path in enumerate(img_paths):
-        img =  plt.imread(path)
-        img = cv2.resize(img, (150,150))
-        label = img_labels[i]
-        X.append(img)
-        y.append(label)
-    return np.array(X),np.array(y)
-
-
-df = pd.DataFrame(images, columns = ["fruit", "path"])
-test_df = train_test_split(df[['path','fruit']].sample(frac=0.05,random_state=0), test_size=0.2,random_state=0)
-train_generator = tf.keras.preprocessing.image.ImageDataGenerator(
-        preprocessing_function=tf.keras.applications.mobilenet_v2.preprocess_input,
-        validation_split=0.1)
-
-train_df,test_df = train_test_split(df[['path','fruit']].sample(frac=0.05,random_state=0), test_size=0.2,random_state=0)
-    # Load the Images with a generator and Data Augmentation
-train_generator = tf.keras.preprocessing.image.ImageDataGenerator(
-        preprocessing_function=tf.keras.applications.mobilenet_v2.preprocess_input,
-        validation_split=0.1
-    )
-test_generator = tf.keras.preprocessing.image.ImageDataGenerator(
-        preprocessing_function=tf.keras.applications.mobilenet_v2.preprocess_input
-    )
-train_images = train_generator.flow_from_dataframe(
-        dataframe=train_df,
-        x_col='path',
-        y_col='fruit',
-        target_size=(224, 224),
-        color_mode='rgb',
-        class_mode='categorical',
-        batch_size=32,
-        shuffle=True,
-        seed=0,
-        subset='training',
-    #   rotation_range=30, # Uncomment those lines to use data augmentation
-    #   zoom_range=0.15,
-    #   width_shift_range=0.2,
-    #   height_shift_range=0.2,
-    #   shear_range=0.15,
-    #   horizontal_flip=True,
-    #   fill_mode="nearest"
-    )
-val_images = train_generator.flow_from_dataframe(
-        dataframe=train_df,
-        x_col='path',
-        y_col='fruit',
-        target_size=(224, 224),
-        color_mode='rgb',
-        class_mode='categorical',
-        batch_size=32,
-        shuffle=True,
-        seed=0,
-        subset='validation',
-    #   rotation_range=30, # Uncomment those lines to use data augmentation
-    #   zoom_range=0.15,
-    #   width_shift_range=0.2,
-    #   height_shift_range=0.2,
-    #   shear_range=0.15,
-    #   horizontal_flip=True,
-    #   fill_mode="nearest"
-    )
-test_images = test_generator.flow_from_dataframe(
-        dataframe=test_df,
-        x_col='path',
-        y_col='fruit',
-        target_size=(224, 224),
-        color_mode='rgb',
-        class_mode='categorical',
-        batch_size=32,
-        shuffle=False
-    )
-
-#@keras.saving.register_keras_serializable(package="my_package", name="custom_fn")
-#def custom_fn(x):
-#    return x**2
-class CustomLayer(keras.layers.Layer):
-    def __init__(self, sublayer, **kwargs):
-        super().__init__(**kwargs)
-        self.sublayer = sublayer
-
-    def call(self, x):
-        return self.sublayer(x)
-
-    def get_config(self):
-        base_config = super().get_config()
-        config = {
-            "sublayer": keras.saving.serialize_keras_object(self.sublayer),
-        }
-        return {**base_config, **config}
-
-    @classmethod
-    def from_config(cls, config):
-        sublayer_config = config.pop("sublayer")
-        sublayer = keras.saving.deserialize_keras_object(sublayer_config)
-        return cls(sublayer, **config)
-    
-
-#!############################
+##* Loading images to be tested ##
 #need to find a way to dynamicaly send the file location to
 apple="C:\\Users\\nsant\\OneDrive\\Documents\\Uni\\Y3\\Project-Source\\Image Recognition\\Test Images\\apple.jpg"
 apple_1="C:\\Users\\nsant\\OneDrive\\Documents\\Uni\\Y3\\Project-Source\\Image Recognition\\Test Images\\apple_1.jpg"
@@ -192,38 +87,12 @@ plt.imshow(unknownFruit)
 plt.show()
 unknownFruit=unknownFruit.reshape(1,224,224,3)
 
-##!##############################
-#model_pkl_file="C:/Users/nsant/OneDrive/Documents/Uni/Y3/Food_Photogrammetry/Code/foodRecognitionClassifier.pkl"
-#with open(model_pkl_file, 'rb') as file:  
-#    model = pickle.load(file)
-# evaluate model 
-#y_predict = model.predict(sampleImage)
+##* Loading Pre-trained Saved Model to quickly identify the fruit##
 
 
-import joblib
-# load model with joblib
-#model = joblib.load("C:/Users/nsant/OneDrive/Documents/Uni/Y3/Food_Photogrammetry/Code/foodRecognitionClassifier.sav")
-#model.summary()
-# evaluate model 
-#y_predict = model.predict(sampleImage)
-
-
-from tensorflow.python.keras.models import load_model
-# load model 
-#model = load_model('C:/Users/nsant/OneDrive/Documents/Uni/Y3/Food_Photogrammetry/Code/foodRecognitionClassifier.keras')
-# check model info 
-#model.summary()
-#y_predict = model.predict(sampleImage)
-
-# Pass the custom objects dictionary to a custom object scope and place
-# the `keras.models.load_model()` call within the scope.
-#custom_objects = {"CustomLayer": CustomLayer}
-#with keras.saving.custom_object_scope(custom_objects):
-#    model = keras.models.load_model("custom_model.keras")
-# Let's check:
-#np.testing.assert_allclose(model.predict(image[0]))
-
-loadingAModel = tf.keras.models.load_model('C:\\Users\\nsant\\OneDrive\\Documents\\Uni\\Y3\\Project-Source\\Image Recognition\\Saved Models\\foodRecognitionClassifier.keras')
+loadingAModel = tf.keras.models.load_model('C:\\Users\\nsant\\OneDrive\\Documents\\Uni\\Y3\\Project-Source\\Image Recognition\\Saved Models\\foodRecognitionClassifier-MobileNetV2.keras')
+#loadingAModel = tf.keras.models.load_model('C:\\Users\\nsant\\OneDrive\\Documents\\Uni\\Y3\\Project-Source\\Image Recognition\\Saved Models\\foodRecognitionClassifier_DenseNet201.keras')
+#loadingAModel = tf.keras.models.load_model('C:\\Users\\nsant\\OneDrive\\Documents\\Uni\\Y3\\Project-Source\\Image Recognition\\Saved Models\\foodRecognitionClassifier.keras')
 #loadingAModel.summary()
 
 # Predict the label of the test_images

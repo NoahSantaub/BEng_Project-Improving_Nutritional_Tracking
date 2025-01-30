@@ -53,6 +53,8 @@ def load_images_from_folder(folder,only_path = False, label = ""):
 # Load the paths on the images
 images = []
 directory = r"C:\Users\nsant\OneDrive\Documents\Uni\Y3\Project_MMME3083\Code\Fruit Image DB"
+#todo change file path
+#directory = r"C:\Users\nsant\OneDrive\Documents\Uni\Y3\Project_MMME3083\Code\fruits-360_dataset_100x100\fruits-360\Training"
 for f in os.listdir(directory):
     if "png" in os.listdir(directory+'\\'+f)[0]:
         images += load_images_from_folder(directory+'\\'+f,True,label = f)
@@ -74,7 +76,7 @@ mapper_fruit_names = dict(zip(fruit_names, [t for t in range(len(fruit_names))])
 df["label"] = df["fruit"].map(mapper_fruit_names)
 #print(mapper_fruit_names)
 
-"""
+
 # Visualize the resulting dataframe
 df.head()
 # Display the number of pictures of each category
@@ -92,7 +94,7 @@ for i, ax in enumerate(axes.flat):
     ax.set_title(df.fruit[i], fontsize = 12)
 plt.tight_layout(pad=0.0)
 plt.show()
-"""
+
 
 #!  Train the neural network from scratch with Keras and w/o generator
 # The pictures will be resized to have the same size for the neural network
@@ -306,7 +308,7 @@ train_generator,test_generator,train_images,val_images,test_images=create_gen()
 model = get_model(tf.keras.applications.DenseNet201)
 history = model.fit(train_images, validation_data=val_images, epochs=5, callbacks=[tf.keras.callbacks.BackupAndRestore(backup_dir="/tmp/backup", save_freq='epoch', delete_checkpoint=True),tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=1, restore_best_weights=True)])
 
-model.save("C:/Users/nsant/OneDrive/Documents/Uni/Y3/Project-Source/Image Recognition/Saved Models/foodRecognitionClassifier.keras")
+model.save("C:/Users/nsant/OneDrive/Documents/Uni/Y3/Project-Source/Image Recognition/Saved Models/foodRecognitionClassifier_DenseNet201.keras")
 
 pd.DataFrame(history.history)[['accuracy','val_accuracy']].plot()
 plt.title("Accuracy")

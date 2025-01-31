@@ -1,7 +1,7 @@
 # Load the libraries
 import tensorflow as tf
-print(tf.__version__) #verifies tensorflow version
-print(tf.config.list_physical_devices('GPU')) #checks for gpu
+print("TensorFlow Version: ", tf.__version__) #verifies tensorflow version
+print("Check for GPU allocation: ",tf.config.list_physical_devices('GPU')) #checks for gpu
 import pandas as pd
 import numpy as np
 import seaborn as sns
@@ -13,8 +13,7 @@ import time
 from sklearn.metrics import classification_report, confusion_matrix, accuracy_score
 from sklearn.model_selection import train_test_split
 import keras
-print(keras.__version__)
-print(tf.keras.__version__)#version check
+print("keras Version: ",tf.keras.__version__)#version check
 from tensorflow.python.keras import Sequential
 from tensorflow.python.keras.layers import Activation, Dropout, Flatten, Dense, Conv2D, MaxPooling2D
 from tensorflow.python.keras.utils.np_utils import to_categorical
@@ -96,19 +95,6 @@ plt.tight_layout(pad=0.0)
 plt.show()
 
 
-#!  Train the neural network from scratch with Keras and w/o generator
-# The pictures will be resized to have the same size for the neural network
-"""
-img = plt.imread(df.path[0])
-plt.imshow(img)
-plt.title("Original image")
-plt.show()
-
-plt.imshow(cv2.resize(img, (150,150)))
-plt.title("After resizing")
-plt.show()
-"""
-
 #!Competition of 27 pre-trained architectures - May the best win
 # Use only 5% on the pictures to speed up the training
 train_df,test_df = train_test_split(df[['path','fruit']].sample(frac=0.05,random_state=0), test_size=0.2,random_state=0)
@@ -150,7 +136,7 @@ def create_gen():
         target_size=(224, 224),
         color_mode='rgb',
         class_mode='categorical',
-        batch_size=32,
+        batch_size=16,
         shuffle=True,
         seed=0,
         subset='validation',
@@ -200,35 +186,35 @@ def get_model(model):
 
 # Dictionary with the models
 models = {
-    "DenseNet121": {"model":tf.keras.applications.DenseNet121, "perf":0},
-    "MobileNetV2": {"model":tf.keras.applications.MobileNetV2, "perf":0},
-    "DenseNet169": {"model":tf.keras.applications.DenseNet169, "perf":0},
-    "DenseNet201": {"model":tf.keras.applications.DenseNet201, "perf":0},
-    "EfficientNetB0": {"model":tf.keras.applications.EfficientNetB0, "perf":0},
-    "EfficientNetB1": {"model":tf.keras.applications.EfficientNetB1, "perf":0},
-    "EfficientNetB2": {"model":tf.keras.applications.EfficientNetB2, "perf":0},
-    "EfficientNetB3": {"model":tf.keras.applications.EfficientNetB3, "perf":0},
-    "EfficientNetB4": {"model":tf.keras.applications.EfficientNetB4, "perf":0},
-    "EfficientNetB5": {"model":tf.keras.applications.EfficientNetB4, "perf":0},
-    "EfficientNetB6": {"model":tf.keras.applications.EfficientNetB4, "perf":0},
-    "EfficientNetB7": {"model":tf.keras.applications.EfficientNetB4, "perf":0},
+    #"DenseNet121": {"model":tf.keras.applications.DenseNet121, "perf":0},
+    #"MobileNetV2": {"model":tf.keras.applications.MobileNetV2, "perf":0},
+    #"DenseNet169": {"model":tf.keras.applications.DenseNet169, "perf":0},
+    #"DenseNet201": {"model":tf.keras.applications.DenseNet201, "perf":0},
+    #"EfficientNetB0": {"model":tf.keras.applications.EfficientNetB0, "perf":0},
+    #"EfficientNetB1": {"model":tf.keras.applications.EfficientNetB1, "perf":0},
+    #"EfficientNetB2": {"model":tf.keras.applications.EfficientNetB2, "perf":0},
+    #"EfficientNetB3": {"model":tf.keras.applications.EfficientNetB3, "perf":0},
+    #"EfficientNetB4": {"model":tf.keras.applications.EfficientNetB4, "perf":0},
+    #"EfficientNetB5": {"model":tf.keras.applications.EfficientNetB4, "perf":0},
+    #"EfficientNetB6": {"model":tf.keras.applications.EfficientNetB4, "perf":0},
+    #"EfficientNetB7": {"model":tf.keras.applications.EfficientNetB4, "perf":0},
     #"InceptionResNetV2": {"model":tf.keras.applications.InceptionResNetV2, "perf":0},#inocrrect link / wrong model unable to be called
-    "InceptionV3": {"model":tf.keras.applications.InceptionV3, "perf":0},
-    "MobileNet": {"model":tf.keras.applications.MobileNet, "perf":0},
-    "MobileNetV2": {"model":tf.keras.applications.MobileNetV2, "perf":0},
-    "MobileNetV3Large": {"model":tf.keras.applications.MobileNetV3Large, "perf":0},
-    "MobileNetV3Small": {"model":tf.keras.applications.MobileNetV3Small, "perf":0},
+    #"InceptionV3": {"model":tf.keras.applications.InceptionV3, "perf":0},
+    #"MobileNet": {"model":tf.keras.applications.MobileNet, "perf":0},
+    #"MobileNetV2": {"model":tf.keras.applications.MobileNetV2, "perf":0},
+    #"MobileNetV3Large": {"model":tf.keras.applications.MobileNetV3Large, "perf":0},
+    #"MobileNetV3Small": {"model":tf.keras.applications.MobileNetV3Small, "perf":0},
     #"NASNetLarge": {"model":tf.keras.applications.NASNetLarge, "perf":0}, Deleted because the input shape has to be another one
-    "NASNetMobile": {"model":tf.keras.applications.NASNetMobile, "perf":0},
-    "ResNet101": {"model":tf.keras.applications.ResNet101, "perf":0},
-    "ResNet101V2": {"model":tf.keras.applications.ResNet101V2, "perf":0},
-    "ResNet152": {"model":tf.keras.applications.ResNet152, "perf":0},
-    "ResNet152V2": {"model":tf.keras.applications.ResNet152V2, "perf":0},
-    "ResNet50": {"model":tf.keras.applications.ResNet50, "perf":0},
-    "ResNet50V2": {"model":tf.keras.applications.ResNet50V2, "perf":0},
-    "VGG16": {"model":tf.keras.applications.VGG16, "perf":0},
+    #"NASNetMobile": {"model":tf.keras.applications.NASNetMobile, "perf":0},
+    #"ResNet101": {"model":tf.keras.applications.ResNet101, "perf":0},
+    #"ResNet101V2": {"model":tf.keras.applications.ResNet101V2, "perf":0},
+    #"ResNet152": {"model":tf.keras.applications.ResNet152, "perf":0},
+    #"ResNet152V2": {"model":tf.keras.applications.ResNet152V2, "perf":0},
+    #"ResNet50": {"model":tf.keras.applications.ResNet50, "perf":0},
+    #"ResNet50V2": {"model":tf.keras.applications.ResNet50V2, "perf":0},
+    #"VGG16": {"model":tf.keras.applications.VGG16, "perf":0},
     "VGG19": {"model":tf.keras.applications.VGG19, "perf":0},
-    "Xception": {"model":tf.keras.applications.Xception, "perf":0}
+    #"Xception": {"model":tf.keras.applications.Xception, "perf":0}
 }
 
 # Create the generators
@@ -308,7 +294,7 @@ train_generator,test_generator,train_images,val_images,test_images=create_gen()
 model = get_model(tf.keras.applications.DenseNet201)
 history = model.fit(train_images, validation_data=val_images, epochs=5, callbacks=[tf.keras.callbacks.BackupAndRestore(backup_dir="/tmp/backup", save_freq='epoch', delete_checkpoint=True),tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=1, restore_best_weights=True)])
 
-model.save("C:/Users/nsant/OneDrive/Documents/Uni/Y3/Project-Source/Image Recognition/Saved Models/foodRecognitionClassifier_DenseNet201.keras")
+model.save("C:/Users/nsant/OneDrive/Documents/Uni/Y3/Project-Source/Image Recognition/Saved Models/foodRecognitionClassifier_VGG19.keras")
 
 pd.DataFrame(history.history)[['accuracy','val_accuracy']].plot()
 plt.title("Accuracy")

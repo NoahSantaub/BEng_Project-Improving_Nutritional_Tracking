@@ -77,7 +77,7 @@ orange="C:\\Users\\nsant\\OneDrive\\Documents\\Uni\\Y3\\Project-Source\\Image Re
 orangeTrainedWith="C:\\Users\\nsant\\OneDrive\\Documents\\Uni\\Y3\\Project_MMME3083\\Code\\Fruit Image DB\\Orange\\Orange0016.png"
 
 testFruitArray=[apple,apple_1,mango,orange,orangeTrainedWith]
-testFruit=testFruitArray[2]
+testFruit=testFruitArray[3]
 print(testFruit)
 unknownFruit = plt.imread(testFruit)
 plt.imshow(unknownFruit)
@@ -89,11 +89,12 @@ unknownFruit=unknownFruit.reshape(1,224,224,3)
 
 ##* Loading Pre-trained Saved Model to quickly identify the fruit##
 
-
-loadingAModel = tf.keras.models.load_model('C:\\Users\\nsant\\OneDrive\\Documents\\Uni\\Y3\\Project-Source\\Image Recognition\\Saved Models\\foodRecognitionClassifier-MobileNetV2.keras')
+#loadingAModel = tf.keras.models.load_model('C:\\Users\\nsant\\OneDrive\\Documents\\Uni\\Y3\\Project-Source\\Image Recognition\\Saved Models\\foodRecognitionClassifier-MobileNetV2.keras')
 #loadingAModel = tf.keras.models.load_model('C:\\Users\\nsant\\OneDrive\\Documents\\Uni\\Y3\\Project-Source\\Image Recognition\\Saved Models\\foodRecognitionClassifier_DenseNet201.keras')
+loadingAModel = tf.keras.models.load_model('C:\\Users\\nsant\\OneDrive\\Documents\\Uni\\Y3\\Project-Source\\Image Recognition\\Saved Models\\foodRecognitionClassifier_DenseNet201_V1.keras')
 #loadingAModel = tf.keras.models.load_model('C:\\Users\\nsant\\OneDrive\\Documents\\Uni\\Y3\\Project-Source\\Image Recognition\\Saved Models\\foodRecognitionClassifier.keras')
 #loadingAModel.summary()
+
 
 # Predict the label of the test_images
 predict = loadingAModel.predict(unknownFruit)

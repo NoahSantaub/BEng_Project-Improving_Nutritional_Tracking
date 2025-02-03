@@ -13,21 +13,24 @@ testFruit=testFruitArray[2]
 model = YOLO("yolo11m.pt")
 
 imageRaw = cv.imread(testFruit)# Load image to be read
-cv.imshow("Image", imageRaw), cv.waitKey(0)# Wait for a key press
+#cv.imshow("Image", imageRaw), cv.waitKey(0)# output original image # Wait for a key press
 
 # Run YOLO model on the captured frame and store the results
-#results = model(imageRaw) # dependant on the number of images provided, imageRaw == index[0]
-results = model.predict(source=imageRaw, conf=0.5)
+results = model(imageRaw) # dependant on the number of images provided, imageRaw == index[0]
+#results = model.predict(source=imageRaw, conf=0.5)
 
 # Output the visual detection data, we will draw this on our camera preview window
 annotated_image = results[0].plot()
-cv.imshow("Annotated Image", annotated_image)
-cv.waitKey(0)
+#cv.imshow("Annotated Image", annotated_image), cv.waitKey(0)
+
+imageDisplay=numpy.concatenate((imageRaw, annotated_image), axis=1)
+imageDisplay=cv.resize(imageDisplay,(1600,600))
+cv.imshow("Image Comparison", imageDisplay), cv.waitKey(0) # output original image with annotated horizontal
 
 predictedClass = results[0].boxes.cls.numpy()
 predictionConfidance = results[0].boxes.conf.numpy()
 
 for index in range(predictedClass.size):
     className=model.names.get(int(predictedClass[index]))
-    strippedClassConfidance = str(predictionConfidance[index]).replace('[','').replace(']','').replace(' ', '')
+    strippedClassConfidance = str(predictionConfidance[index]).replace('[','').replace(']','').replace(' ', '') # strips & sanatises text
     print("Item No. ", index, "\nPredicted Class: ",className,"\nPrediction Confidance: ",strippedClassConfidance)

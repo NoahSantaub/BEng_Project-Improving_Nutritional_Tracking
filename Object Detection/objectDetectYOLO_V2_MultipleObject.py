@@ -12,7 +12,10 @@ testFruitArray=["Image Recognition\\Test Images\\apple.jpg", "Image Recognition\
 testFruit=testFruitArray[7]
 
 # Load a pretrained YOLO11n-cls Classify model
-model = YOLO("yolov8n.pt")
+model = YOLO("yolo11m.pt")
+results = model.train(data="C:/Users/nsant/OneDrive/Documents/Uni/Y3/Project_MMME3083/Code/open-images-v7-COCO/labels.json", epochs=100, imgsz=640)
+
+model.save("yolo11m-TransferLearningV0.1.pt")
 
 imageRaw = cv.imread(testFruit)# Load image to be read
 #cv.imshow("Image", imageRaw), cv.waitKey(0)# output original image # Wait for a key press

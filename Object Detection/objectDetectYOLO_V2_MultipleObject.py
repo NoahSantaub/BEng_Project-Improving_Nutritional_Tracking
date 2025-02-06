@@ -6,11 +6,13 @@ from ultralytics import YOLO
 # https://core-electronics.com.au/guides/raspberry-pi/getting-started-with-yolo-object-and-animal-recognition-on-the-raspberry-pi/
 
 testFruitArray=["Image Recognition\\Test Images\\apple.jpg", "Image Recognition\\Test Images\\apple_1.jpg", "Image Recognition\\Test Images\\FruitBowl.jpg",
-                "Image Recognition\\Test Images\\orange.jpg", "Project_MMME3083\\Code\\Fruit Image DB\\Orange\\Orange0016.png"]
-testFruit=testFruitArray[2]
+                "Image Recognition\\Test Images\\orange.jpg", "Project_MMME3083\\Code\\Fruit Image DB\\Orange\\Orange0016.png", 
+                "Image Recognition\\Test Images\\Multi_1.jpg", "Image Recognition\\Test Images\\Multi_2.jpg", "Image Recognition\\Test Images\\Multi_3.jpg", 
+                "Image Recognition\\Test Images\\Multi_4.jpg", "Image Recognition\\Test Images\\Multi_5.jpg"]
+testFruit=testFruitArray[7]
 
 # Load a pretrained YOLO11n-cls Classify model
-model = YOLO("yolo11m.pt")
+model = YOLO("yolov8n.pt")
 
 imageRaw = cv.imread(testFruit)# Load image to be read
 #cv.imshow("Image", imageRaw), cv.waitKey(0)# output original image # Wait for a key press

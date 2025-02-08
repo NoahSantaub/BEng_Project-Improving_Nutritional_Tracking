@@ -23,13 +23,13 @@ splits = ["train", "test", "validation"]
 dataset = foz.load_zoo_dataset(
     "open-images-v7",
     #split=splits, #"train", # specify splits to load, ('train', 'test', 'validation'); is none provided all splits are loaded 
-    label_types=["detections"], # yolo only supports detections label # label types to load - ("detections", "classifications", "relationships", "points", segmentations") - defult all labels loaded
+    #label_types=["detections"], # yolo only supports detections label # label types to load - ("detections", "classifications", "relationships", "points", segmentations") - defult all labels loaded
     classes=fruitList,
     max_samples=17000, #estimating 1000 images per class # maximum number of samples to load per split
     seed=0,# ensures repeatability
 )
 
-export_dir="C:/Users/nsant/OneDrive/Documents/Uni/Y3/Project_MMME3083/Code/open-images-v7-COCO-v04" #export_dir = "/path/for/yolov5-dataset"
+export_dir="C:/Users/nsant/OneDrive/Documents/Uni/Y3/Project_MMME3083/Code/open-images-v7-COCO-v05" #export_dir = "/path/for/yolov5-dataset"
 label_field = "ground_truth"  # for example
 
 # The dataset or view to export

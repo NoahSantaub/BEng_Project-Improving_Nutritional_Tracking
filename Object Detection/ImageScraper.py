@@ -30,7 +30,6 @@ dataset = foz.load_zoo_dataset(
 )
 
 export_dir="C:/Users/nsant/OneDrive/Documents/Uni/Y3/Project_MMME3083/Code/open-images-v7-COCO-v05" #export_dir = "/path/for/yolov5-dataset"
-label_field = "ground_truth"  # for example
 
 # The dataset or view to export
 # We assume the dataset uses sample tags to encode the splits to export

@@ -3,7 +3,7 @@ import fiftyone.zoo as foz
 
 # Define the classes you want to include
 #fruitList = ["Apple","Banana","Grapefruit","Lemon","Mango","Orange", "Peach", "Pear", "Watermelon", "Tomato", "Strawberry"]
-fruitList = ["Apple", "Grape", "Common fig", "Pear", "Strawberry" , "Tomato", "Lemon", "Banana", "Orange", "Peach", "Pear", "Mango", "Pineapple", "Grapefruit", "Pomegranate", "Watermelon", "Cantaloupe"]
+fruitList = ["Apple", "Banana", "Cantaloupe", "Common fig", "Grape", "Grapefruit", "Lemon", "Mango", "Orange", "Peach", "Pear", "Pomegranate", "Strawberry", "Tomato", "Watermelon"]
 # Fruits in Open Images v7 - "Apple", "Grape", "Common fig", "Pear", "Strawberry" , "Tomato", "Lemon", "Banana, "Orange", "Peach", "Pear", "Mango", "Pineapple", "Grapefruit", "Pomegranate", "Watermelon", "Cantaloupe"
 # Veg in Open Images v7 - "Artichoke", "Asparagus", "Bell pepper", "Broccoli", "Cabbage", "Carrot", "Cucumber", "Mushroom", "Potato", "Pumpkin", "Radish", "Salad", "Winter melon", "Zuccini"
 
@@ -23,9 +23,9 @@ splits = ["train", "test", "validation"]
 dataset = foz.load_zoo_dataset(
     "open-images-v7",
     #split=splits, #"train", # specify splits to load, ('train', 'test', 'validation'); is none provided all splits are loaded 
-    #label_types=["detections"], # yolo only supports detections label # label types to load - ("detections", "classifications", "relationships", "points", segmentations") - defult all labels loaded
+    label_types=["detections", "segmentations"], # yolo only supports detections label # label types to load - ("detections", "classifications", "relationships", "points", segmentations") - defult all labels loaded
     classes=fruitList,
-    max_samples=17000, #estimating 1000 images per class # maximum number of samples to load per split
+    max_samples=20000, #estimating 1000 images per class # maximum number of samples to load per split
     seed=0,# ensures repeatability
 )
 

@@ -14,7 +14,8 @@ else:
 # Load a pretrained model
 model = YOLO("yolo11n.pt")
 #model.to('cuda')
-results = model.train(data="C:/Users/nsant/OneDrive/Documents/Uni/Y3/Project_MMME3083/Code/open-images-v7-COCO-v05\dataset.yaml", epochs=300, imgsz=1280,workers=0, batch=-1, patience=5, optimizer="auto", 
+#"C:\Users\nsant\OneDrive\Documents\Uni\Y3\Project_MMME3083\Code\Fruits-And-Vegetables-Detection-Dataset-main\LVIS_Fruits_And_Vegetables\data.yaml"
+results = model.train(data="C:/Users/nsant/OneDrive/Documents/Uni/Y3/Project_MMME3083/Code/Fruits-And-Vegetables-Detection-Dataset-main/LVIS_Fruits_And_Vegetables/data.yaml", epochs=100, imgsz=640,workers=0, batch=-1, patience=5, optimizer="auto", 
                         lr0= 0.00269,
                         lrf= 0.00288,
                         momentum= 0.73375,
@@ -39,4 +40,4 @@ results = model.train(data="C:/Users/nsant/OneDrive/Documents/Uni/Y3/Project_MMM
 
 #batch=-1 automatically determines the batch size that can be efficiently processed based on your device's capabilities
 #patience=5 # training will stop if there's no improvement in validation metrics for 5 consecutive epochs
-model.save("yolo11n-TransferLearningV04-LargeFruitDBhyperparam.pt")
+model.save("yolo11n-TransferLearningV05-LVIS-Fruit.pt")

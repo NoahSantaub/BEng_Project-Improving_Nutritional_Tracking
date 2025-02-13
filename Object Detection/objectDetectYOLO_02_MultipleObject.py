@@ -17,11 +17,11 @@ else:
 testFruitArray=["Image Recognition\\Test Images\\apple.jpg", "Image Recognition\\Test Images\\apple_1.jpg", "Image Recognition\\Test Images\\FruitBowl.jpg",
                 "Image Recognition\\Test Images\\orange.jpg", "Project_MMME3083\\Code\\Fruit Image DB\\Orange\\Orange0016.png", 
                 "Image Recognition\\Test Images\\Multi_1.jpg", "Image Recognition\\Test Images\\Multi_2.jpg", "Image Recognition\\Test Images\\Multi_3.jpg", 
-                "Image Recognition\\Test Images\\Multi_4.jpg", "Image Recognition\\Test Images\\Multi_5.jpg"]
-testFruit=testFruitArray[7]
+                "Image Recognition\\Test Images\\Multi_4.jpg", "Image Recognition\\Test Images\\Multi_5.jpg", "Image Recognition\\Test Images\\TestSubjects1.jpg"]
+testFruit=testFruitArray[10]
 
 # Load custom trained model
-model = YOLO("yolo11n-TransferLearningV04-OptimisedHyperparameters.pt")
+model = YOLO("yolo11n-TransferLearningV05-LVIS-Fruit.pt")
 
 imageRaw = cv.imread(testFruit)# Load image to be read
 #cv.imshow("Image", imageRaw), cv.waitKey(0)# output original image # Wait for a key press

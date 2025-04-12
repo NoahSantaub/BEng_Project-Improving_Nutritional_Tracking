@@ -77,14 +77,14 @@ orange="C:\\Users\\nsant\\OneDrive\\Documents\\Uni\\Y3\\Project-Source\\Image Re
 orangeTrainedWith="C:\\Users\\nsant\\OneDrive\\Documents\\Uni\\Y3\\Project_MMME3083\\Code\\Fruit Image DB\\Orange\\Orange0016.png"
 
 testFruitArray=[apple,apple_1,mango,orange,orangeTrainedWith]
-testFruit=testFruitArray[3]
+testFruit=testFruitArray[2]
 print(testFruit)
 unknownFruit = plt.imread(testFruit)
 plt.imshow(unknownFruit)
-plt.show()
+#plt.show()
 unknownFruit=(cv2.resize(unknownFruit, (224,224)))
 plt.imshow(unknownFruit)
-plt.show()
+#plt.show()
 unknownFruit=unknownFruit.reshape(1,224,224,3)
 
 ##* Loading Pre-trained Saved Model to quickly identify the fruit##
@@ -107,6 +107,7 @@ print("Predicted Class: ",predictedClass)
 strippedText = str(predictedClass).replace('[','').replace(']','')
 #print(strippedText)
 #value=test_df['fruit'].values[int(strippedText)]
+#print(mapper_fruit_names.keys())
 value=list(mapper_fruit_names.keys()) [list(mapper_fruit_names.values()).index(int(strippedText))]
 print("Predicted Value: ", value)
 

@@ -17,11 +17,13 @@ else:
 testFruitArray=["Image Recognition\\Test Images\\apple.jpg", "Image Recognition\\Test Images\\apple_1.jpg", "Image Recognition\\Test Images\\FruitBowl.jpg",
                 "Image Recognition\\Test Images\\orange.jpg", "Project_MMME3083\\Code\\Fruit Image DB\\Orange\\Orange0016.png", 
                 "Image Recognition\\Test Images\\Multi_1.jpg", "Image Recognition\\Test Images\\Multi_2.jpg", "Image Recognition\\Test Images\\Multi_3.jpg", 
-                "Image Recognition\\Test Images\\Multi_4.jpg", "Image Recognition\\Test Images\\Multi_5.jpg", "Image Recognition\\Test Images\\TestSubjects1.jpg"]
-testFruit=testFruitArray[10]
+                "Image Recognition\\Test Images\\Multi_4.jpg", "Image Recognition\\Test Images\\Multi_5.jpg", "Image Recognition\\Test Images\\TestSubjects1.jpg",
+                "Image Recognition\\Test Images\\testImages.jpg"]
+testFruit=testFruitArray[11]
 
 # Load custom trained model
-model = YOLO("yolo11n-TransferLearningV05-LVIS-Fruit.pt")
+#model = YOLO("yolo11m.pt")
+model = YOLO("yolo11n-TransferLearningV04-OptimisedHyperparameters.pt")
 
 imageRaw = cv.imread(testFruit)# Load image to be read
 #cv.imshow("Image", imageRaw), cv.waitKey(0)# output original image # Wait for a key press
@@ -36,7 +38,7 @@ annotated_image = results[0].plot()
 
 imageDisplay=numpy.concatenate((imageRaw, annotated_image), axis=1)
 imageDisplay=cv.resize(imageDisplay,(1600,600))
-cv.imshow("Image Comparison", imageDisplay)
+cv.imshow("Image Comparison", annotated_image)
 cv.waitKey(0) # output original image with annotated horizontal
 
 predictedClass = results[0].boxes.cls.numpy()

@@ -23,7 +23,7 @@ testFruit=testFruitArray[11]
 
 # Load custom trained model
 #model = YOLO("yolo11m.pt")
-model = YOLO("yolo11n-TransferLearningV04-OptimisedHyperparameters.pt")
+model = YOLO("yolo11l-TransferLearningV07-COCOFruitOnly.pt")
 
 imageRaw = cv.imread(testFruit)# Load image to be read
 #cv.imshow("Image", imageRaw), cv.waitKey(0)# output original image # Wait for a key press
@@ -31,16 +31,13 @@ imageRaw = cv.imread(testFruit)# Load image to be read
 # Run YOLO model on the captured frame and store the results
 results = model.predict(imageRaw, device="cpu") # dependant on the number of images provided, imageRaw == index[0]
 #results = model.predict(source=imageRaw, conf=0.5)
-
-# Output the visual detection data, we will draw this on our camera preview window
 annotated_image = results[0].plot()
 #cv.imshow("Annotated Image", annotated_image), cv.waitKey(0)
 
 imageDisplay=numpy.concatenate((imageRaw, annotated_image), axis=1)
 imageDisplay=cv.resize(imageDisplay,(1600,600))
-cv.imshow("Image Comparison", annotated_image)
+cv.imshow("Image Comparison", imageDisplay)
 cv.waitKey(0) # output original image with annotated horizontal
-
 predictedClass = results[0].boxes.cls.numpy()
 predictionConfidance = results[0].boxes.conf.numpy()
 

@@ -283,41 +283,35 @@ plt.xticks(rotation=90)
 plt.show()
 
 
-#! Train architecture with the best result
+#! Train architecture with the best architecture
 # Split into train/test datasets using all of the pictures
 train_df,test_df = train_test_split(df, test_size=0.1, random_state=0)
-
 # Create the generator
 train_generator,test_generator,train_images,val_images,test_images=create_gen()
-
 # Create and train the model
 model = get_model(tf.keras.applications.DenseNet201)
-history = model.fit(train_images, validation_data=val_images, epochs=5, callbacks=[tf.keras.callbacks.BackupAndRestore(backup_dir="/tmp/backup", save_freq='epoch', delete_checkpoint=True),tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=1, restore_best_weights=True)])
-
-model.save("C:/Users/nsant/OneDrive/Documents/Uni/Y3/Project-Source/Image Recognition/Saved Models/foodRecognitionClassifier_VGG19.keras")
+history = model.fit(train_images, validation_data=val_images, epochs=5, callbacks=[tf.keras.callbacks.BackupAndRestore(backup_dir="/tmp/backup",
+                save_freq='epoch', delete_checkpoint=True),tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=1, restore_best_weights=True)])
+#model.save("C:.../Saved Models/foodRecognitionClassifier_DenseNet201.keras")
+model.save("C:/Users/nsant/OneDrive/Documents/Uni/Y3/Project-Source/Image Recognition/Saved Models/foodRecognitionClassifier_DenseNet201.keras")
 
 pd.DataFrame(history.history)[['accuracy','val_accuracy']].plot()
 plt.title("Accuracy")
 plt.show()
-
 pd.DataFrame(history.history)[['loss','val_loss']].plot()
 plt.title("Loss")
 plt.show()
-
 # Predict the label of the test_images
 predict = model.predict(test_images)
 predict = np.argmax(predict,axis=1)
-
 # Map the label
 labels = (train_images.class_indices)
 labels = dict((v,k) for k,v in labels.items())
 predict = [labels[k] for k in predict]
-
 # Get the accuracy on the test set
 y_test = list(test_df.fruit)
 acc = accuracy_score(y_test,predict)
 print(f'# Accuracy on the test set: {acc * 100:.2f}%')
-
 # Display a confusion matrix
 from sklearn.metrics import confusion_matrix
 cf_matrix = confusion_matrix(y_test, predict, normalize='true')
@@ -327,10 +321,8 @@ plt.title('Normalized Confusion Matrix', fontsize = 23)
 plt.xticks(fontsize=15)
 plt.yticks(fontsize=15)
 plt.show()
-
 # Display picture of the dataset with their labels
 fig, axes = plt.subplots(nrows=4, ncols=6, figsize=(20, 12),subplot_kw={'xticks': [], 'yticks': []})
-
 for i, ax in enumerate(axes.flat):
     ax.imshow(plt.imread(test_df.path.iloc[i]))
     ax.set_title(f"True: {test_df.fruit.iloc[i].split('_')[0]}\nPredicted: {predict[i].split('_')[0]}", fontsize = 15)

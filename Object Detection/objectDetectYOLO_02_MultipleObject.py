@@ -19,17 +19,18 @@ testFruitArray=["Image Recognition\\Test Images\\apple.jpg", "Image Recognition\
                 "Image Recognition\\Test Images\\Multi_1.jpg", "Image Recognition\\Test Images\\Multi_2.jpg", "Image Recognition\\Test Images\\Multi_3.jpg", 
                 "Image Recognition\\Test Images\\Multi_4.jpg", "Image Recognition\\Test Images\\Multi_5.jpg", "Image Recognition\\Test Images\\TestSubjects1.jpg",
                 "Image Recognition\\Test Images\\testImages.jpg"]
-testFruit=testFruitArray[11]
+testFruit=testFruitArray[10]
 
 # Load custom trained model
 #model = YOLO("yolo11m.pt")
-model = YOLO("yolo11l-TransferLearningV07-COCOFruitOnly.pt")
+model = YOLO("yolo11n.pt")
+#model = YOLO("runs/detect/train3/weights/best.pt")
 
 imageRaw = cv.imread(testFruit)# Load image to be read
 #cv.imshow("Image", imageRaw), cv.waitKey(0)# output original image # Wait for a key press
 
 # Run YOLO model on the captured frame and store the results
-results = model.predict(imageRaw, device="cpu") # dependant on the number of images provided, imageRaw == index[0]
+results = model.predict(imageRaw, device="cpu", conf=0.8) # dependant on the number of images provided, imageRaw == index[0]
 #results = model.predict(source=imageRaw, conf=0.5)
 annotated_image = results[0].plot()
 #cv.imshow("Annotated Image", annotated_image), cv.waitKey(0)

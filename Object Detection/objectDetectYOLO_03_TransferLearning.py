@@ -3,7 +3,6 @@ import numpy
 from ultralytics import YOLO
 import os
 os.environ['KMP_DUPLICATE_LIB_OK']='TRUE'
-
 import torch
 if torch.cuda.is_available():
     print("gpu detected")

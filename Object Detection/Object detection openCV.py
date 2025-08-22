@@ -1,3 +1,5 @@
+# TEST code, doesnt work in current state
+
 # Real-Time Object Detection in OpenCV with Automatic Perspective Correction!
 # https://www.youtube.com/watch?v=kLnkAZCwZX0
 # (c) Izhar Shaikh

@@ -71,6 +71,6 @@ Libraries required to run Image Recognition files:
   
   TensorFlow with Windows native GPU
   - Tensorflow == 2.10.1
-    - Grapic Drivers -> cuDNN == 8.1 & CUDA == 11.2 https://www.tensorflow.org/install/source#gpu
+    - Graphic Drivers -> cuDNN == 8.1 & CUDA == 11.2 https://www.tensorflow.org/install/source#gpu
   - Keras == 2.10.0
   - Python == 3.9
